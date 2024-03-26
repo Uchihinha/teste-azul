@@ -22,6 +22,7 @@ app.listen(3000, () => {
 });
 
 const scrap = async () => {
+  let page;
   try {
     const browser = await puppeteer.launch({
       executablePath: "google-chrome-stable",
@@ -39,7 +40,7 @@ const scrap = async () => {
       headless: true,
     });
 
-    let page = await browser.newPage();
+    page = await browser.newPage();
 
     await page.goto("https://www.voeazul.com.br/", {
       waitUntil: "networkidle2",
@@ -53,6 +54,7 @@ const scrap = async () => {
 
     return "all good";
   } catch (error) {
+    await sendScreenshotError(page, "teste");
     console.log("error", error);
     return JSON.stringify(error);
   }
