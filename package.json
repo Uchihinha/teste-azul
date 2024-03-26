@@ -1,0 +1,20 @@
+{
+    "module": "true",
+    "scripts": {
+        "dev": "node index.js",
+        "docker:up": "docker ps -a | grep -q azul-scrapper && docker rm azul-scrapper || true && docker image build -t azul-scrapper . && docker run -i --name azul-scrapper -p 3000:3000 azul-scrapper",
+        "ecr:deploy": "docker build -t azul-scrapper . && docker tag azul-scrapper:latest 054309897869.dkr.ecr.us-east-1.amazonaws.com/azul-scrapper:latest && docker push 054309897869.dkr.ecr.us-east-1.amazonaws.com/azul-scrapper:latest"
+    },
+    "dependencies": {
+        "axios": "^1.6.8",
+        "express": "^4.19.2",
+        "form-data": "^4.0.0",
+        "fs": "^0.0.1-security",
+        "puppeteer-core": "22.2",
+        "puppeteer-extra": "^3.3.6",
+        "puppeteer-extra-plugin-stealth": "^2.11.2"
+    },
+    "devDependencies": {
+        "puppeteer": "22.2"
+    }
+}
